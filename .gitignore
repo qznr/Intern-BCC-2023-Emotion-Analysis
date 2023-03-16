@@ -11955,4 +11955,19 @@ __pycache__/DatasetsLoad.cpython-38.pyc
 __pycache__/Sampling.cpython-38.pyc
 __pycache__/Tfidf.cpython-38.pyc
 __pycache__/Datasets.cpython-311.pyc
-Datasets/*.pkl
+Datasets/Test/ADASYN Clean.pkl
+Datasets/Test/ADASYN Negations.pkl
+Datasets/Test/NCR Clean.pkl
+Datasets/Test/NCR Negations.pkl
+Datasets/Test/NearMiss Clean.pkl
+Datasets/Test/NearMiss Negations.pkl
+Datasets/Test/Original Clean.pkl
+Datasets/Test/Original Negations.pkl
+Datasets/Val/ADASYN Clean.pkl
+Datasets/Val/ADASYN Negations.pkl
+Datasets/Val/NCR Clean.pkl
+Datasets/Val/NCR Negations.pkl
+Datasets/Val/NearMiss Clean.pkl
+Datasets/Val/NearMiss Negations.pkl
+Datasets/Val/Original Clean.pkl
+Datasets/Val/Original Negations.pkl
