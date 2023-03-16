@@ -31,7 +31,7 @@ if not os.path.exists("Datasets/Val"):
     os.mkdir("Datasets/Val")
 
 # Check if each dataset exists, load from file if it does, save and load if it doesn't
-for i, dataset in enumerate(datasets):
+for i, dataset in enumerate(datasets_test):
     dataset_name = dataset[4]
     file_name = f"Datasets/Test/{dataset_name}.pkl"
     if not os.path.exists(file_name):

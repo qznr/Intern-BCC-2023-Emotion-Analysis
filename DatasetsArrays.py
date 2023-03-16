@@ -16,6 +16,9 @@ datasets = [
     (X_train_nm_clean, y_train_nm_clean, x_val_vec_clean, y_val, "NearMiss Clean")
     ]
 
+if not os.path.exists("Datasets/Arrays"):
+    os.mkdir("Datasets/Arrays")
+
 for i, (x_train, y_train, x_val, y_val, name) in enumerate(datasets):
     datasets[i] = (x_train.toarray(), y_train, x_val.toarray(), y_val, name)
 

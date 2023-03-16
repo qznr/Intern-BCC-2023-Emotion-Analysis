@@ -1,8 +1,8 @@
+import mysql.connector
 import optuna
-import sqlite3
-import os
-from tqdm import tqdm
-from DatasetsDenseLoad import datasets
+from optuna.study import MaxTrialsCallback
+from optuna.trial import TrialState
+from DatasetsArraysLoad import datasets
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import precision_score
 
@@ -17,20 +17,22 @@ def objective(trial, x_train, y_train, x_val, y_val):
     return precision
 
 if __name__ == '__main__':
-    if not os.path.exists('Hyperparameter Tuning'):
-        os.makedirs('Hyperparameter Tuning')
-    conn = sqlite3.connect('optuna.db')
+    conn = mysql.connector.connect(
+        host='localhost',
+        user='myuser',
+        password='mypassword'
+    )
+    cursor = conn.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS optuna_knn")
+    conn.close()
     best_hyperparams = {}
-    for x_train, y_train, x_val, y_val, dataset_name in tqdm(datasets):
-        # Create Optuna study for each datasets with SQLite storage
-        study = optuna.create_study(direction="maximize", storage=optuna.storages.RDBStorage(url='sqlite:///optuna.db'), load_if_exists=True)
-        with tqdm(total=100, desc=f"Optimizing {dataset_name}") as progress_bar:
-            def objective_with_progress_bar(trial):
-                progress_bar.update(1)
-                return objective(trial, x_train, y_train, x_val, y_val)
-            study.optimize(objective_with_progress_bar, n_trials=100)
+    for x_train, y_train, x_val, y_val, dataset_name in datasets:
+        # Create Optuna study for each datasets with MySQL storage
+        study = optuna.load_study(study_name=f"knn_{dataset_name}", storage=optuna.storages.RDBStorage(url='mysql://myuser:mypassword@localhost/optuna_knn'))
+        study.optimize(lambda trial: objective(trial, x_train, y_train, x_val, y_val), callbacks=[MaxTrialsCallback(100, states=(TrialState.COMPLETE,))], show_progress_bar=True)
         best_hyperparams[dataset_name] = study.best_params
         print(f"Best hyperparameters for {dataset_name}: {best_hyperparams[dataset_name]}")
         with open(f'Hyperparameter Tuning/KNN_{dataset_name}.txt', 'w') as f:
             f.write(f"n_neighbors: {best_hyperparams[dataset_name]['n_neighbors']}\n")
-            f.write(f"p: {best_hyperparams[dataset_name]['p']}\n")
+            f.write(f"weights: {best_hyperparams[dataset_name]['weights']}\n")
+            f.write(f"algorithm: {best_hyperparams[dataset_name]['algorithm']}\n")
