@@ -12,7 +12,7 @@ datasets = [
 
 for i, dataset in enumerate(datasets):
     dataset_name = dataset[4]
-    file_name = f"Datasets/Arrays_{dataset_name}.pkl"
+    file_name = f"Datasets/Arrays/Arrays_{dataset_name}.pkl"
     print(f"Loading {dataset_name} Sampled Object...")
     with open(file_name, 'rb') as f:
         datasets[i] = pickle.load(f)

@@ -26,7 +26,7 @@ for i, (x_train, y_train, x_val, y_val, name) in enumerate(datasets):
 # Check if each dataset exists, load from file if it does, save and load if it doesn't
 for i, dataset in enumerate(datasets):
     dataset_name = dataset[4]
-    file_name = f"Datasets/Arrays_{dataset_name}.pkl"
+    file_name = f"Datasets/Arrays/Arrays_{dataset_name}.pkl"
     if not os.path.exists(file_name):
         print(f"Saving {dataset_name} Sampled Object...")
         with open(file_name, 'wb') as f:
