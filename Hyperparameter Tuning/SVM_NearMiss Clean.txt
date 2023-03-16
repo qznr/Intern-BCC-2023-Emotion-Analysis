@@ -1,0 +1,3 @@
+C: 0.0183256321528014
+Kernel: poly
+Gamma: auto

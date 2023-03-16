@@ -1,0 +1,3 @@
+C: 0.27745939540251247
+Kernel: poly
+Gamma: scale
