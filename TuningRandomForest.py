@@ -1,8 +1,6 @@
 import mysql.connector
 import os
 import optuna
-from optuna.study import MaxTrialsCallback
-from optuna.trial import TrialState
 from DatasetsLoad import datasets
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
@@ -33,7 +31,7 @@ if __name__ == '__main__':
     for x_train, y_train, x_val, y_val, dataset_name in datasets:
         # Create Optuna study for each datasets with MySQL storage
         study = optuna.load_study(study_name = f"rf_{dataset_name}", storage=optuna.storages.RDBStorage(url='mysql://myuser:mypassword@localhost/optuna_rf'))
-        study.optimize(lambda trial: objective(trial, x_train, y_train, x_val, y_val), callbacks=[MaxTrialsCallback(500, states=(TrialState.COMPLETE,))], show_progress_bar=True)
+        study.optimize(lambda trial: objective(trial, x_train, y_train, x_val, y_val), n_trials=100, show_progress_bar=True)
         best_hyperparams[dataset_name] = study.best_params
         print(f"Best hyperparameters for {dataset_name}: {best_hyperparams[dataset_name]}")
         with open(f'Hyperparameter Tuning/RandomForest_{dataset_name}.txt', 'w') as f:
