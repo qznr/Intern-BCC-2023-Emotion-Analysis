@@ -11,7 +11,7 @@ hyperparameter_path = "Hyperparameter Tuning"
 precision_scores = {}
 
 # Loop over each dataset and hyperparameter file
-for dataset in datasets_test:
+for dataset in datasets:
     X_train, y_train, X_test, y_test, dataset_name = dataset
     precision_scores[dataset_name] = []  # Initialize an empty list for the current dataset
     for filename in os.listdir(hyperparameter_path):
@@ -40,6 +40,6 @@ for dataset in datasets_test:
                 precision_scores[dataset_name].append(precision)
 
 # Print the precision scores for each dataset
-with open("ScoresTestKNN.txt", "w") as f:
+with open("ScoresValKNN.txt", "w") as f:
     for dataset_name, scores in precision_scores.items():
         f.write(f"{dataset_name} - Precision scores: {scores}\n")
