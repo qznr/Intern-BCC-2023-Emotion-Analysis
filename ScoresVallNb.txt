@@ -1,0 +1,8 @@
+ADASYN Negations - Precision scores: [0.46788693852712543]
+ADASYN Clean - Precision scores: [0.48515055254015116]
+Original Negations - Precision scores: [0.3601810616941909]
+Original Clean - Precision scores: [0.3595358388892111]
+NCR Negations - Precision scores: [0.3560519610793554]
+NCR Clean - Precision scores: [0.34286107046857744]
+NearMiss Negations - Precision scores: [0.28541035353103134]
+NearMiss Clean - Precision scores: [0.282981762089449]
