@@ -11979,3 +11979,7 @@ Datasets/Arrays_NearMiss Clean.pkl
 Datasets/Arrays_NearMiss Negations.pkl
 Datasets/Arrays_Original Clean.pkl
 Datasets/Arrays_Original Negations.pkl
+__pycache__/DataPreprocessing.cpython-311.pyc
+__pycache__/DatasetsLoad.cpython-311.pyc
+__pycache__/Sampling.cpython-311.pyc
+__pycache__/Tfidf.cpython-311.pyc
