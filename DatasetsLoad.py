@@ -6,8 +6,8 @@ datasets = [
     ('x_train_vec_clean', 'y_train_clean', 'x_val_vec_clean', 'y_val', "Original Clean"),
     ('X_train_ncr_negations', 'y_train_ncr_negations', 'x_val_vec_negations', 'y_val', "NCR Negations"),
     ('X_train_ncr_clean', 'y_train_ncr_clean', 'x_val_vec_clean', 'y_val', "NCR Clean"),
-    ('X_train_nm_negations', 'y_train_nm_negations', 'x_val_vec_negations', 'y_val', "NearMiss Negations"),
-    ('X_train_nm_clean', 'y_train_nm_clean', 'x_val_vec_clean', 'y_val', "NearMiss Clean")
+    ('X_train_nm_negations', 'y_train_nm_negations', 'x_val_vec_negations', 'y_val', "NearMiss Negations"), # +2500 Trials
+    ('X_train_nm_clean', 'y_train_nm_clean', 'x_val_vec_clean', 'y_val', "NearMiss Clean") # +2500 Trials
     ]
 
 datasets_test = [

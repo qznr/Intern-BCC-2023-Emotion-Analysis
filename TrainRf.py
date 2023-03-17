@@ -1,6 +1,6 @@
 import os
-from Tfidf import y_test
 from DatasetsLoad import datasets_test
+from DatasetsLoad import datasets
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
 
@@ -47,6 +47,6 @@ for dataset in datasets_test:
                 precision_scores[dataset_name].append(precision)
 
 # Print the precision scores for each dataset
-with open("Rf_final_scores.txt", "w") as f:
+with open("ScoresTestlRf.txt", "w") as f:
     for dataset_name, scores in precision_scores.items():
         f.write(f"{dataset_name} - Precision scores: {scores}\n")
