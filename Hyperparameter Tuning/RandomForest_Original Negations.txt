@@ -1,4 +1,4 @@
-n_estimators: 501
-max_depth: 5
-min_samples_split: 9
-min_samples_leaf: 5
+n_estimators: 28
+max_depth: 30
+min_samples_split: 17
+min_samples_leaf: 16
