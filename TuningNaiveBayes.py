@@ -3,12 +3,12 @@ import os
 import optuna
 from optuna.study import MaxTrialsCallback
 from optuna.trial import TrialState
-from DatasetsArraysLoad import datasets
+from DatasetsLoad import datasets
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import precision_score
 
 def objective(trial, x_train, y_train, x_val, y_val):
-    nb_var_smoothing = trial.suggest_loguniform("var_smoothing", 1e-12, 1e-5)
+    nb_var_smoothing = trial.suggest_float("var_smoothing", 1e-12, 1e-5)
     nb_model = GaussianNB(var_smoothing=nb_var_smoothing)
     nb_model.fit(x_train, y_train)
     y_pred = nb_model.predict(x_val)

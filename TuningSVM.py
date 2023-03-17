@@ -1,7 +1,6 @@
-import optuna
-import sqlite3
+import mysql.connector
 import os
-from tqdm import tqdm
+import optuna
 from DatasetsLoad import datasets
 from sklearn.svm import SVC
 from sklearn.metrics import precision_score
@@ -17,18 +16,21 @@ def objective(trial, x_train, y_train, x_val, y_val):
     return precision
 
 if __name__ == '__main__':
+    conn = mysql.connector.connect(
+        host='localhost',
+        user='myuser',
+        password='mypassword'
+    )
+    cursor = conn.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS optuna_svm")
+    conn.close()
     if not os.path.exists('Hyperparameter Tuning'):
         os.makedirs('Hyperparameter Tuning')
-    conn = sqlite3.connect('optuna.db')
     best_hyperparams = {}
-    for x_train, y_train, x_val, y_val, dataset_name in tqdm(datasets):
-        # Create Optuna study for each datasets with SQLite storage
-        study = optuna.create_study(direction="maximize", storage=optuna.storages.RDBStorage(url='sqlite:///optuna.db'), load_if_exists=True)
-        with tqdm(total=100, desc=f"Optimizing {dataset_name}") as progress_bar:
-            def objective_with_progress_bar(trial):
-                progress_bar.update(1)
-                return objective(trial, x_train, y_train, x_val, y_val)
-            study.optimize(objective_with_progress_bar, n_trials=100)
+    for x_train, y_train, x_val, y_val, dataset_name in datasets:
+        # Create Optuna study for each datasets with MySQL storage
+        study = optuna.load_study(study_name = f"rf_{dataset_name}", storage=optuna.storages.RDBStorage(url='mysql://myuser:mypassword@localhost/optuna_svm'))
+        study.optimize(lambda trial: objective(trial, x_train, y_train, x_val, y_val), n_trials=50, show_progress_bar=True)
         best_hyperparams[dataset_name] = study.best_params
         print(f"Best hyperparameters for {dataset_name}: {best_hyperparams[dataset_name]}")
         with open(f'Hyperparameter Tuning/SVM_{dataset_name}.txt', 'w') as f:
