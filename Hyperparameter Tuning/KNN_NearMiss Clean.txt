@@ -1,0 +1,2 @@
+n_neighbors: 17
+p: 3
