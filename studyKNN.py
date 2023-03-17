@@ -14,5 +14,5 @@ if __name__ == '__main__':
     conn.close()
     for x_train, y_train, x_val, y_val, dataset_name in datasets:
         # Create Optuna study for each datasets with MySQL storage
-        study = optuna.create_study(study_name=f"knn_{dataset_name}", storage=optuna.storages.RDBStorage(url='mysql://myuser:mypassword@localhost/optuna_knn'), load_if_exists=True)
+        study = optuna.create_study(direction="maximize", study_name=f"knn_{dataset_name}", storage=optuna.storages.RDBStorage(url='mysql://myuser:mypassword@localhost/optuna_knn'), load_if_exists=True)
 

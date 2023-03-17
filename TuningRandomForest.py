@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
 
 def objective(trial, x_train, y_train, x_val, y_val):
-    rf_n_estimators = trial.suggest_int("n_estimators", 500, 1000)
+    rf_n_estimators = trial.suggest_int("n_estimators", 10, 100)
     rf_max_depth = trial.suggest_int("max_depth", 2, 32, log=True)
     rf_min_samples_split = trial.suggest_int("min_samples_split", 2, 20)
     rf_min_samples_leaf = trial.suggest_int("min_samples_leaf", 1, 20)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     for x_train, y_train, x_val, y_val, dataset_name in datasets:
         # Create Optuna study for each datasets with MySQL storage
         study = optuna.load_study(study_name = f"rf_{dataset_name}", storage=optuna.storages.RDBStorage(url='mysql://myuser:mypassword@localhost/optuna_rf'))
-        study.optimize(lambda trial: objective(trial, x_train, y_train, x_val, y_val), n_trials=150, show_progress_bar=True)
+        study.optimize(lambda trial: objective(trial, x_train, y_train, x_val, y_val), n_trials=50, show_progress_bar=True)
         best_hyperparams[dataset_name] = study.best_params
         print(f"Best hyperparameters for {dataset_name}: {best_hyperparams[dataset_name]}")
         with open(f'Hyperparameter Tuning/RandomForest_{dataset_name}.txt', 'w') as f:
